@@ -201,7 +201,8 @@ def locateCenterOnImage(*args, **kwargs):
         if coords is None:
             return None
         else:
-            return pyscreeze.center(coords)
+            location = pyscreeze.center(coords)
+            return (location.x.item(), location.y.item())
     except Exception as e:
         return None
 
