@@ -13,7 +13,7 @@ imgs = {
 
 
 def search_like_button(ss):
-    return helpers.locateCenterOnImage(imgs['like_buttton'], ss, confidence=0.7, region=(600, 560, 600 + 200, 560 + 200))
+    return helpers.locateCenterOnImage(imgs['like_buttton'], ss, confidence=0.78, region=(600, 560, 600 + 100, 560 + 100))
 
 def scroll_page():
     return helpers.d.swipe(292, 1050, 292, 163, 0.1)
@@ -77,8 +77,8 @@ def auto_comment(ss):
 
 
 while True:
+    time.sleep(10)
     ss = helpers.screenshot()
-
     position = search_like_button(ss)
     print(position)
     # print(position)
@@ -89,8 +89,6 @@ while True:
         total += 1
     # break
 
-    time.sleep(5)
     scroll_page()
-    time.sleep(5)
 
 
