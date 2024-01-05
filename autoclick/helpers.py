@@ -1,4 +1,4 @@
-import uiautomator2 as u2
+from uiautomator2 import connect
 from prompt_toolkit import prompt, print_formatted_text
 from prompt_toolkit.completion import WordCompleter
 
@@ -21,7 +21,7 @@ keycodes = {
     "right": 22,
 }
 
-d = u2.connect()
+d = connect()
 
 
 def tap(x, y):
@@ -264,4 +264,3 @@ def create_select_interface(options_list, return_index=True):
         return option_index
     else:
         return selected_option
-
