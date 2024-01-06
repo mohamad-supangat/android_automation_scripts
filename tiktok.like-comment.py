@@ -58,7 +58,8 @@ while True:
         position = has_like_button.center()
         tap(x=position[0], y=position[1])
         print('Like')
-        auto_comment()
+        if random.randint(1, 10) % 2 == 1:
+            auto_comment()
 
     random_sleep()
     scroll_page()
