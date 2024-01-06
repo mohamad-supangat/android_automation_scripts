@@ -2,6 +2,8 @@ from os import posix_fallocate
 import time
 import random
 from autoclick import helpers, db
+import autoclick
+from autoclick.helpers import device, tap
 
 
 total = 0
@@ -12,66 +14,56 @@ imgs = {
 }
 
 
-def search_like_button(ss):
-    return helpers.locateCenterOnImage(imgs['like_buttton'], ss, confidence=0.78, region=(600, 560, 600 + 100, 560 + 100))
+def search_like_button():
+    return device(descriptionContains="Like video", className="android.widget.Button")
 
 
 def scroll_page():
-    return helpers.d.swipe(292, 1050, 292, 163, 0.1)
+    return helpers.device.swipe(292, 1050, 292, 163, 0.1)
 
 
 def close_comment():
-    # position = auto.locateCenterOnScreen(
-    #     './tiktok/img/close_comment_button.png', confidence=confidence)
-    print("close comment")
-    # print(position)
-    # if position:
-    #     auto.click(position.x, position.y)
-    # else:
-    #     close_comment(confidence=0.7)
-
-    helpers.rightClick()
+    position = device(descriptionContains="Close comments").center()
+    tap(position[0], position[1])
 
 
-def auto_comment(ss):
+def auto_comment():
     time.sleep(random.randint(5, 8))
-    position = helpers.locateCenterOnImage(
-        imgs['comment_button'], ss, confidence=0.8, region=(354, 93, 67, 595)
-    )
+
+    has_comment_button = device(
+        className="android.widget.Button", descriptionContains="Read or add comments")
     # klik tombol komentar
-    if position:
-        helpers.click(position.x, position.y)
+    if has_comment_button:
+        position = has_comment_button.center()
+        tap(position[0], position[1])
         time.sleep(1)
 
         # check jika komentar di aktifkan
         # position = auto.locateCenterOnScreen(
         #     "./tiktok/img/emoticon_komentar.png", confidence=0.4)
 
-        position = True
-        if position:
+        has_comment_input = device(
+            className="android.widget.EditText", textContains="Add comment")
+        if has_comment_input:
+            # position = has_comment_input.center()
+            # tap(position[0], position[1])
             # klik kolom komentar
-            helpers.click(168, 718)
-            helpers.click(168, 718)
+            # helpers.click(168, 718)
+            # helpers.click(168, 718)
 
             time.sleep(0.5)
 
             comment_text = random.choice(db.comments)
             print(f'comment: {comment_text}')
-            helpers.write(comment_text, interval=0.01)
-            time.sleep(0.5)
+            has_comment_input.set_text(comment_text)
+            # helpers.write(comment_text, interval=0.01)
+            time.sleep(2)
 
-            position = helpers.locateCenterOnScreen(
-                "./tiktok/img/send_message_button.png",
-                confidence=0.8,
-                region=(363, 689, 100, 100),
-            )
-            if position:
-                helpers.click(*position)
-
+            submit_button = device(className="android.widget.ImageView",
+                                   descriptionContains="Post comment").center()
+            tap(submit_button[0], submit_button[1])
             time.sleep(1)
 
-        count_comment += 1
-        time.sleep(1)
         close_comment()
         time.sleep(random.randint(5, 8))
     else:
@@ -80,15 +72,12 @@ def auto_comment(ss):
 
 while True:
     time.sleep(10)
-    ss = helpers.screenshot()
-    position = search_like_button(ss)
-    print(position)
-    # print(position)
-    if position:
-        print(position)
-        # like postingan
-        helpers.tap(*position)
-        total += 1
-    # break
+    has_like_button = search_like_button()
+    if has_like_button:
+        position = has_like_button.center()
+        tap(x=position[0], y=position[1])
+        print('Like')
+        auto_comment()
 
+    # time.sleep(10)
     scroll_page()

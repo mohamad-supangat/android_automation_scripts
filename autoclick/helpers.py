@@ -24,6 +24,10 @@ keycodes = {
 device = connect()
 
 
+# def write(text):
+#     device.shell()
+
+
 def tap(x, y):
     """simulasikan menekan layar
 
