@@ -227,7 +227,7 @@ def send_notify(message):
 
 
 def random_sleep():
-    return time.sleep(random.randint(5, 10))
+    return time.sleep(random.randint(3, 5))
 
 
 def create_select_interface(options_list, return_index=True):

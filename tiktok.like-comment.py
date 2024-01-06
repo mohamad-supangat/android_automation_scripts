@@ -4,11 +4,6 @@ from autoclick.helpers import device, tap, random_sleep
 
 
 total = 0
-imgs = {
-    'follow_button': './imgs/tiktok/follow_button.png',
-    'like_buttton': './imgs/tiktok/like_button.png',
-    'comment_button': './imgs/tiktok/comment_button.png'
-}
 
 
 def search_like_button():
@@ -37,7 +32,9 @@ def auto_comment():
         has_comment_input = device(
             className="android.widget.EditText", textContains="Add comment")
         if has_comment_input:
-            random_sleep()
+            position = has_comment_input.center()
+            tap(position[0], position[1])
+            tap(position[0], position[1])
 
             comment_text = random.choice(db.comments)
             print(f'comment: {comment_text}')
@@ -48,8 +45,6 @@ def auto_comment():
                                    descriptionContains="Post comment").center()
             tap(submit_button[0], submit_button[1])
             random_sleep()
-
-        random_sleep()
 
         close_comment()
     else:
