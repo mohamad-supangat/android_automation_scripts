@@ -2,6 +2,8 @@ from uiautomator2 import connect
 from prompt_toolkit import prompt, print_formatted_text
 from prompt_toolkit.completion import WordCompleter
 
+import time
+import random
 import requests
 import pyscreeze
 from PIL import Image
@@ -222,6 +224,10 @@ def send_notify(message):
 
     requests.post(
         f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage?chat_id={TELEGRAM_CHAT_ID}&text={message}")
+
+
+def random_sleep():
+    return time.sleep(random.randint(5, 10))
 
 
 def create_select_interface(options_list, return_index=True):

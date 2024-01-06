@@ -1,9 +1,6 @@
-from os import posix_fallocate
-import time
 import random
 from autoclick import helpers, db
-import autoclick
-from autoclick.helpers import device, tap
+from autoclick.helpers import device, tap, random_sleep
 
 
 total = 0
@@ -28,7 +25,7 @@ def close_comment():
 
 
 def auto_comment():
-    time.sleep(random.randint(5, 8))
+    random_sleep()
 
     has_comment_button = device(
         className="android.widget.Button", descriptionContains="Read or add comments")
@@ -36,42 +33,31 @@ def auto_comment():
     if has_comment_button:
         position = has_comment_button.center()
         tap(position[0], position[1])
-        time.sleep(1)
-
-        # check jika komentar di aktifkan
-        # position = auto.locateCenterOnScreen(
-        #     "./tiktok/img/emoticon_komentar.png", confidence=0.4)
-
+        random_sleep()
         has_comment_input = device(
             className="android.widget.EditText", textContains="Add comment")
         if has_comment_input:
-            # position = has_comment_input.center()
-            # tap(position[0], position[1])
-            # klik kolom komentar
-            # helpers.click(168, 718)
-            # helpers.click(168, 718)
-
-            time.sleep(0.5)
+            random_sleep()
 
             comment_text = random.choice(db.comments)
             print(f'comment: {comment_text}')
             has_comment_input.set_text(comment_text)
-            # helpers.write(comment_text, interval=0.01)
-            time.sleep(2)
+            random_sleep()
 
             submit_button = device(className="android.widget.ImageView",
                                    descriptionContains="Post comment").center()
             tap(submit_button[0], submit_button[1])
-            time.sleep(1)
+            random_sleep()
+
+        random_sleep()
 
         close_comment()
-        time.sleep(random.randint(5, 8))
     else:
         close_comment()
 
 
 while True:
-    time.sleep(10)
+    random_sleep()
     has_like_button = search_like_button()
     if has_like_button:
         position = has_like_button.center()
@@ -79,5 +65,5 @@ while True:
         print('Like')
         auto_comment()
 
-    # time.sleep(10)
+    random_sleep()
     scroll_page()
