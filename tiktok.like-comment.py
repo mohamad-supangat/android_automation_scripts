@@ -52,6 +52,9 @@ def auto_comment():
 
 
 while True:
+    if random.randint(1, 10) % 2 == 1:
+        continue
+
     random_sleep()
     has_like_button = search_like_button()
     if has_like_button:
