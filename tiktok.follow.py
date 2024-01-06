@@ -1,8 +1,8 @@
+from logging import warning
 import time
-from autoclick import helpers
+from autoclick.helpers import device, tap
 
 
-device = helpers.d
 total = 0
 imgs = {
     'follow_button': './imgs/tiktok/follow_button.png'
@@ -14,14 +14,15 @@ def search_follow_button():
 
 
 def scroll_page():
-    return helpers.d.swipe(292, 1250, 292, 163, 0.5)
+    return device.swipe(292, 1250, 292, 163, 0.5)
 
 
 while True:
 
     follow_button = search_follow_button()
     if follow_button:
-        follow_button.click()
+        position = follow_button.center()
+        tap(position[0], position[1])
         total += 1
     else:
         print(f"total: {total}")

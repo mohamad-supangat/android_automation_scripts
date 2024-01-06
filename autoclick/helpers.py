@@ -21,7 +21,7 @@ keycodes = {
     "right": 22,
 }
 
-d = connect()
+device = connect()
 
 
 def tap(x, y):
@@ -34,7 +34,7 @@ def tap(x, y):
     Returns:
 
     """
-    return d.click(x, y)
+    return device.click(x, y)
     # return adb_shell(f"input tap {x} {y}")
 
 
@@ -50,7 +50,7 @@ def tapHold(x, y, time=1):
 
     """
     print('hold', x, y)
-    return d.long_click(x, y, time)
+    return device.long_click(x, y, time)
 
 
 def getKeyCode(key):
@@ -74,7 +74,7 @@ def press(keycodes):
     Returns:
 
     """
-    return d.press(keycodes)
+    return device.press(keycodes)
 
 
 def send_keys(key):
@@ -86,7 +86,7 @@ def send_keys(key):
     Returns:
 
     """
-    return d.send_keys(key)
+    return device.send_keys(key)
 
 
 def screenshot():
@@ -95,7 +95,7 @@ def screenshot():
     Returns:
 
     """
-    pilimg = d.screenshot('/tmp/screenshot_tmp.png')
+    pilimg = device.screenshot('/tmp/screenshot_tmp.png')
     return "/tmp/screenshot_tmp.png"
 
 
