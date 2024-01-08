@@ -3,7 +3,8 @@ from autoclick import helpers, db
 from autoclick.helpers import device, tap, random_sleep
 
 
-total = 0
+total_like = 0
+total_comment = 0
 
 
 def search_like_button():
@@ -15,11 +16,14 @@ def scroll_page():
 
 
 def close_comment():
-    position = device(descriptionContains="Close comments").center()
-    tap(position[0], position[1])
+    close_comment = device(descriptionContains="Close comments")
+    if close_comment:
+        position = close_comment.center()
+        tap(position[0], position[1])
 
 
 def auto_comment():
+    global total_comment
     random_sleep()
 
     has_comment_button = device(
@@ -44,15 +48,12 @@ def auto_comment():
             submit_button = device(className="android.widget.ImageView",
                                    descriptionContains="Post comment").center()
             tap(submit_button[0], submit_button[1])
+            total_comment += 1
             random_sleep()
-
-        close_comment()
-    else:
-        close_comment()
 
 
 while True:
-    if random.randint(1, 10) % 2 == 1:
+    if random.randint(1, 999) % 2 == 1:
         continue
 
     random_sleep()
@@ -61,8 +62,13 @@ while True:
         position = has_like_button.center()
         tap(x=position[0], y=position[1])
         print('Like')
-        if random.randint(1, 10) % 2 == 1:
+        total_like += 1
+        if random.randint(1, 999) % 2 == 1:
             auto_comment()
 
+    close_comment()
     random_sleep()
+    print(f"like: {total_like}")
+    print(f"comment: {total_comment}")
+
     scroll_page()
