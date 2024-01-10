@@ -100,10 +100,8 @@ comments = [
     "Inspiratif",
     "Keren Pokoknya",
     "Mantap!",
-    "Edan!",
     "Gak kebayang gimana caranya bikin ini",
     "Support Selalu ka",
     "Sukses selalu",
     "Saling Support ya ka"
 ]
-
