@@ -103,5 +103,8 @@ comments = [
     "Gak kebayang gimana caranya bikin ini",
     "Support Selalu ka",
     "Sukses selalu",
-    "Saling Support ya ka"
+    "Saling Support ya ka",
+    "Tips menarik",
+    "Keren bang",
+    "Mantap ini video"
 ]
