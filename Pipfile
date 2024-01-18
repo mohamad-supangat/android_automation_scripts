@@ -3,6 +3,21 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[[source]]
+url = "https://pypi.doubanio.com/simple"
+verify_ssl = true
+name = "pypidoubanio"
+
+[[source]]
+url = "https://pypi.doubanio.com/simple"
+verify_ssl = true
+name = "pypidoubanio"
+
+[[source]]
+url = "https://pypi.doubanio.com/simple"
+verify_ssl = true
+name = "pypidoubanio"
+
 [packages]
 pyautogui = "*"
 numpy = "*"
@@ -12,11 +27,12 @@ adbutils = "*"
 # google-api-python-client = "*"
 # google-cloud-vision = "*"
 # gpyocr = "*"
-uiautomator2 = "*"
 packaging = "==21.3"
 python-dotenv = "*"
 prompt-toolkit = "*"
 autoclick = {file = ".", editable = true}
+install = {version = "*", index = "pypidoubanio"}
+uiautomator2 = {extras = ["image"], version = "*", index = "pypidoubanio"}
 
 [dev-packages]
 
