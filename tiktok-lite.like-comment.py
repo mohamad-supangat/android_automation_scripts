@@ -44,11 +44,13 @@ def auto_comment():
         if has_comment_input:
             position = has_comment_input.center()
             tap(position[0], position[1])
+            tap(position[0], position[1])
 
             random_sleep()
             comment_text = random.choice(db.comments)
             print(f'comment: {comment_text}')
-            has_comment_input.set_text(comment_text)
+            device.send_keys(comment_text)
+            # has_comment_input.set_text(comment_text)
             random_sleep()
 
             submit_button = locateCenterOnImage(
