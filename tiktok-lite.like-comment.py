@@ -68,8 +68,9 @@ while True:
         tap(*has_like_button)
         print('Like')
         total_like += 1
-        if random.randint(1, 999) % 2 == 1:
-            auto_comment()
+
+    if random.randint(1, 999) % 2 == 0:
+        auto_comment()
 
     close_comment()
     random_sleep()
