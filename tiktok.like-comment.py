@@ -8,7 +8,9 @@ total_comment = 0
 
 
 def search_like_button():
-    return device(descriptionContains="Like video", className="android.widget.Button")
+    return device(
+        descriptionContains='Like video', className='android.widget.Button'
+    )
 
 
 def scroll_page():
@@ -16,7 +18,7 @@ def scroll_page():
 
 
 def close_comment():
-    close_comment = device(descriptionContains="Close comments")
+    close_comment = device(descriptionContains='Close comments')
     if close_comment:
         position = close_comment.center()
         tap(position[0], position[1])
@@ -27,14 +29,17 @@ def auto_comment():
     random_sleep()
 
     has_comment_button = device(
-        className="android.widget.Button", descriptionContains="Read or add comments")
+        className='android.widget.Button',
+        descriptionContains='Read or add comments',
+    )
     # klik tombol komentar
     if has_comment_button:
         position = has_comment_button.center()
         tap(position[0], position[1])
         random_sleep()
         has_comment_input = device(
-            className="android.widget.EditText", textContains="Add comment")
+            className='android.widget.EditText', textContains='Add comment'
+        )
         if has_comment_input:
             position = has_comment_input.center()
             tap(position[0], position[1])
@@ -45,8 +50,10 @@ def auto_comment():
             has_comment_input.set_text(comment_text)
             random_sleep()
 
-            submit_button = device(className="android.widget.ImageView",
-                                   descriptionContains="Post comment").center()
+            submit_button = device(
+                className='android.widget.ImageView',
+                descriptionContains='Post comment',
+            ).center()
             tap(submit_button[0], submit_button[1])
             total_comment += 1
             random_sleep()
@@ -68,7 +75,7 @@ while True:
 
     close_comment()
     random_sleep()
-    print(f"like: {total_like}")
-    print(f"comment: {total_comment}")
+    print(f'like: {total_like}')
+    print(f'comment: {total_comment}')
 
     scroll_page()

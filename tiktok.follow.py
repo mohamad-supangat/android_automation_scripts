@@ -1,12 +1,9 @@
-from logging import warning
 import time
 from autoclick.helpers import device, tap
 
 
 total = 0
-imgs = {
-    'follow_button': './imgs/tiktok/follow_button.png'
-}
+imgs = {'follow_button': './imgs/tiktok/follow_button.png'}
 
 
 def search_follow_button():
@@ -25,7 +22,7 @@ while True:
         tap(position[0], position[1])
         total += 1
     else:
-        print(f"total: {total}")
+        print(f'total: {total}')
         scroll_page()
 
     # break
