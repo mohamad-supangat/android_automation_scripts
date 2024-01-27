@@ -22,7 +22,7 @@ imgs = {
 
 def search_like_button():
     return locateCenterOnImage(
-        imgs.get('like_button'), screenshot(), confidence=0.8
+        imgs.get('like_button'), screenshot(), confidence=0.82
     )
 
 
@@ -43,8 +43,12 @@ def auto_comment():
     # random_sleep()
 
     has_comment_button = locateCenterOnImage(
-        imgs.get('comment_button'), screenshot(), confidence=0.8
+        imgs.get('comment_button'), screenshot(), confidence=0.82
     )
+
+    print('has_comment_button')
+    print(has_comment_button)
+
     # klik tombol komentar
     if has_comment_button:
         tap(*has_comment_button)
@@ -78,6 +82,8 @@ while True:
 
     random_sleep()
     has_like_button = search_like_button()
+    print('has_like_button')
+    print(has_like_button)
     if has_like_button:
         tap(*has_like_button)
         print('Like')
