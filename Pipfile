@@ -17,6 +17,7 @@ python-dotenv = "*"
 prompt-toolkit = "*"
 autoclick = {file = ".", editable = true}
 uiautomator2 = {version = "*"}
+setuptools = "*"
 
 [dev-packages]
 
