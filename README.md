@@ -1,20 +1,21 @@
 <p align="center">
   <h3 align="center">ADB - Automation Scripts</h3>
-  <p align="center">Kumpulan code automation untuk menjalankan perintah adb input
+  <p align="center">
+      A group of automation code to run adb input commands
   </p>
 </p>
 
 <br>
-<p>Script ini dibuat untuk melakukan automatisasi kegiatan kegiatan yang menurutku sangat membosankan tetapi kita harus melakukanya setiap hari</p>
-<p>Silahkan fork dan masukan ide ide kalian sebanyak mungkin</p>
+<p>This script was created to automate activities that I think are very boring but we have to do them every day</p>
+<p>Please fork and enter as many of your ideas as possible</p>
 
 
-### Daftar Automation:
+### List Automation:
 - Tiktok (Tiktok lite)
   - Auto Follow
   - Auto Like and Comment
 - PokeMMO
-  - Auto Grinding Grass 
+  - Auto Grinding Grass
 
 ### Requirement
 - Python
@@ -35,4 +36,4 @@
   adb devices
   ```
 - Run some automation script
-  ```pipenv run tiktok.auto-follow.py```
+  ```pipenv run ./tiktok.auto-follow.py```
