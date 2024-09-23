@@ -1,3 +1,5 @@
+#!/bin/env python
+
 import random
 from autoclick import helpers, db
 from autoclick.helpers import (
@@ -76,6 +78,16 @@ def auto_comment():
             random_sleep()
 
 
+# start the tiktok lite activity
+
+device.app_stop_all()
+device.app_start(
+    'com.zhiliaoapp.musically.go',
+    'com.ss.android.ugc.aweme.main.homepage.MainActivity',
+)
+device.wait_activity(
+    'com.ss.android.ugc.aweme.main.homepage.MainActivity', timeout=10
+)
 while True:
     if random.randint(1, 999) % 2 == 1:
         continue

@@ -1,3 +1,5 @@
+#!/bin/env python
+
 import time
 from autoclick.helpers import device, tap, locateCenterOnImage, screenshot
 
@@ -16,6 +18,15 @@ def search_follow_button():
 def scroll_page():
     return device.swipe(292, 1250, 292, 163, 0.5)
 
+
+device.app_stop_all()
+device.app_start(
+    'com.zhiliaoapp.musically.go',
+    'com.bytedance.hybrid.spark.page.SparkActivity',
+)
+device.wait_activity(
+    'com.bytedance.hybrid.spark.page.SparkActivity', timeout=10
+)
 
 while True:
 

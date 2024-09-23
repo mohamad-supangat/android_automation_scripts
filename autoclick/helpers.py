@@ -16,11 +16,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 keycodes = {
-    "space": 62,
-    "up": 19,
-    "down": 20,
-    "left": 21,
-    "right": 22,
+    'space': 62,
+    'up': 19,
+    'down': 20,
+    'left': 21,
+    'right': 22,
 }
 
 device = connect()
@@ -102,10 +102,10 @@ def screenshot():
 
     """
     pilimg = device.screenshot('/tmp/screenshot_tmp.png')
-    return "/tmp/screenshot_tmp.png"
+    return '/tmp/screenshot_tmp.png'
 
 
-def ocr(file_path, encoding="utf-8"):
+def ocr(file_path, encoding='utf-8'):
     """mengekstrak text dari file gambar
 
     Args:
@@ -115,13 +115,13 @@ def ocr(file_path, encoding="utf-8"):
     Returns:
 
     """
-    p = Popen(["gocr", file_path], stdin=PIPE, stdout=PIPE)
+    p = Popen(['gocr', file_path], stdin=PIPE, stdout=PIPE)
     text = p.stdout.read()
     p.stdout.close()
-    return text.decode(encoding).strip("\n")
+    return text.decode(encoding).strip('\n')
 
 
-def gpt(ask, encoding="utf-8"):
+def gpt(ask, encoding='utf-8'):
     """Ask GPT a question.
 
     Args:
@@ -132,12 +132,12 @@ def gpt(ask, encoding="utf-8"):
         str: Response from GPT.
     """
     try:
-        p = Popen(["bard-cli", ask], stdin=PIPE, stdout=PIPE)
+        p = Popen(['bard-cli', ask], stdin=PIPE, stdout=PIPE)
         text = p.stdout.read()
         p.stdout.close()
-        return text.decode(encoding).strip("\n")
+        return text.decode(encoding).strip('\n')
     except Exception as e:
-        print(f"An error occurred: {e}. Retrying...")
+        print(f'An error occurred: {e}. Retrying...')
         return gpt(ask, encoding)  # Recalling the function if an error occurs
 
 
@@ -223,7 +223,8 @@ def send_notify(message):
     TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
     requests.post(
-        f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage?chat_id={TELEGRAM_CHAT_ID}&text={message}")
+        f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage?chat_id={TELEGRAM_CHAT_ID}&text={message}'
+    )
 
 
 def random_sleep():
@@ -243,14 +244,14 @@ def create_select_interface(options_list, return_index=True):
     completer = WordCompleter(options_list)
 
     # Show list of options
-    print_formatted_text("Available options:")
+    print_formatted_text('Available options:')
     for index, option in enumerate(options_list):
-        print_formatted_text(f"{index + 1}. {option}")
+        print_formatted_text(f'{index + 1}. {option}')
 
     while True:
         # Prompt the user for selection
         option = prompt(
-            "Please select an option (type number or option name): \n",
+            'Please select an option (type number or option name): \n',
             completer=completer,
         )
 
@@ -264,7 +265,7 @@ def create_select_interface(options_list, return_index=True):
         except ValueError:
             # User might have entered option name
             if option not in options_list:
-                print("Invalid option. Please try again.")
+                print('Invalid option. Please try again.')
             else:
                 selected_option = option
                 break
