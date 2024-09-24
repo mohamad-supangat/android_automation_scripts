@@ -24,10 +24,12 @@
 
 ### How to use
 - Clone with git
-  ```git clone https://github.com/mohamad-supangat/autoclick_adb.git```
+  ```bash
+  git clone https://github.com/mohamad-supangat/android_automation_scripts.git
+  ```
 - Installing python dependencies with PipEnv
   ```
-  cd autoclick_adb
+  cd android_automation_scripts
   pipenv install
   ```
 - Check and Connect Android Device
