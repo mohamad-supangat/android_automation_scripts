@@ -21,6 +21,7 @@
 - Python
 - Pipenv
 - Android Device With ADB Enable and Connected to Host (USB or Wifi)
+- **All script write only and tested by 720x1280 px screen** 
 
 ### How to use
 - Clone with git
