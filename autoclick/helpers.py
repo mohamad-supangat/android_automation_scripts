@@ -133,7 +133,7 @@ def gpt(ask, encoding="utf-8"):
     try:
         genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
         model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content("The opposite of hot is")
+        response = model.generate_content(ask)
         return response.text
     except Exception as e:
         print(f"An error occurred: {e}. Retrying...")
