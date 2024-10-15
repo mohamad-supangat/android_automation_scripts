@@ -8,16 +8,13 @@ pyautogui = "*"
 numpy = "*"
 opencv-python = "*"
 adbutils = "*"
-# pytesseract = "*"
-# google-api-python-client = "*"
-# google-cloud-vision = "*"
-# gpyocr = "*"
 packaging = "==21.3"
 python-dotenv = "*"
 prompt-toolkit = "*"
 autoclick = {file = ".", editable = true}
 uiautomator2 = {version = "*"}
 setuptools = "*"
+google-generativeai = "*"
 
 [dev-packages]
 
