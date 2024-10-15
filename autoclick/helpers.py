@@ -6,21 +6,20 @@ import time
 import random
 import requests
 import pyscreeze
+import google.generativeai as genai
 from PIL import Image
-import io
 import os
-import cv2
-from subprocess import Popen, PIPE, call
+from subprocess import Popen, PIPE
 from dotenv import load_dotenv
 
 load_dotenv()
 
 keycodes = {
-    'space': 62,
-    'up': 19,
-    'down': 20,
-    'left': 21,
-    'right': 22,
+    "space": 62,
+    "up": 19,
+    "down": 20,
+    "left": 21,
+    "right": 22,
 }
 
 device = connect()
@@ -55,7 +54,7 @@ def tapHold(x, y, time=1):
     Returns:
 
     """
-    print('hold', x, y)
+    print("hold", x, y)
     return device.long_click(x, y, time)
 
 
@@ -101,11 +100,11 @@ def screenshot():
     Returns:
 
     """
-    pilimg = device.screenshot('/tmp/screenshot_tmp.png')
-    return '/tmp/screenshot_tmp.png'
+    pilimg = device.screenshot("/tmp/screenshot_tmp.png")
+    return "/tmp/screenshot_tmp.png"
 
 
-def ocr(file_path, encoding='utf-8'):
+def ocr(file_path, encoding="utf-8"):
     """mengekstrak text dari file gambar
 
     Args:
@@ -115,13 +114,13 @@ def ocr(file_path, encoding='utf-8'):
     Returns:
 
     """
-    p = Popen(['gocr', file_path], stdin=PIPE, stdout=PIPE)
+    p = Popen(["gocr", file_path], stdin=PIPE, stdout=PIPE)
     text = p.stdout.read()
     p.stdout.close()
-    return text.decode(encoding).strip('\n')
+    return text.decode(encoding).strip("\n")
 
 
-def gpt(ask, encoding='utf-8'):
+def gpt(ask, encoding="utf-8"):
     """Ask GPT a question.
 
     Args:
@@ -132,12 +131,12 @@ def gpt(ask, encoding='utf-8'):
         str: Response from GPT.
     """
     try:
-        p = Popen(['bard-cli', ask], stdin=PIPE, stdout=PIPE)
-        text = p.stdout.read()
-        p.stdout.close()
-        return text.decode(encoding).strip('\n')
+        genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content("The opposite of hot is")
+        return response.text
     except Exception as e:
-        print(f'An error occurred: {e}. Retrying...')
+        print(f"An error occurred: {e}. Retrying...")
         return gpt(ask, encoding)  # Recalling the function if an error occurs
 
 
@@ -155,8 +154,8 @@ def extract_text_from_image(image_path, location=None):
         image = Image.open(image_path)
         cropped_image = image.crop(location)
         # cropped_image.show()
-        cropped_image.save('/tmp/cropped_imag.png')
-        image_text = ocr('/tmp/cropped_imag.png')
+        cropped_image.save("/tmp/cropped_imag.png")
+        image_text = ocr("/tmp/cropped_imag.png")
     else:
         image_text = ocr(image_path)
 
@@ -209,7 +208,7 @@ def locateCenterOnImage(*args, **kwargs):
         else:
             location = pyscreeze.center(coords)
             return (location.x.item(), location.y.item())
-    except Exception as e:
+    except Exception:
         return None
 
 
@@ -219,11 +218,11 @@ def send_notify(message):
     Args:
         message ():
     """
-    TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
-    TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+    TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+    TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
     requests.post(
-        f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage?chat_id={TELEGRAM_CHAT_ID}&text={message}'
+        f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage?chat_id={TELEGRAM_CHAT_ID}&text={message}"
     )
 
 
@@ -244,14 +243,14 @@ def create_select_interface(options_list, return_index=True):
     completer = WordCompleter(options_list)
 
     # Show list of options
-    print_formatted_text('Available options:')
+    print_formatted_text("Available options:")
     for index, option in enumerate(options_list):
-        print_formatted_text(f'{index + 1}. {option}')
+        print_formatted_text(f"{index + 1}. {option}")
 
     while True:
         # Prompt the user for selection
         option = prompt(
-            'Please select an option (type number or option name): \n',
+            "Please select an option (type number or option name): \n",
             completer=completer,
         )
 
@@ -265,7 +264,7 @@ def create_select_interface(options_list, return_index=True):
         except ValueError:
             # User might have entered option name
             if option not in options_list:
-                print('Invalid option. Please try again.')
+                print("Invalid option. Please try again.")
             else:
                 selected_option = option
                 break
