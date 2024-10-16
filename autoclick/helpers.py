@@ -43,6 +43,18 @@ def tap(x, y):
     # return adb_shell(f"input tap {x} {y}")
 
 
+def changeScreenSize(width=720, height=1280, density=320):
+    """change screen size
+
+    Args:
+        width ():
+        height ():
+        density ():
+    """
+    device.shell(f"wm size {width}x{height}")
+    device.shell(f"wm density {density}")
+
+
 def tapHold(x, y, time=1):
     """simulasi tekan layar / hold
 

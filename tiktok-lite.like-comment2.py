@@ -8,6 +8,7 @@ from autoclick.helpers import (
     random_sleep,
     locateCenterOnImage,
     screenshot,
+    changeScreenSize,
 )
 
 
@@ -15,17 +16,15 @@ total_like = 0
 total_comment = 0
 
 imgs = {
-    'like_button': './imgs/tiktok_lite/like_button2.png',
-    'comment_button': './imgs/tiktok_lite/comment_button2.png',
-    'submit_comment_button': './imgs/tiktok_lite/submit_comment_button.png',
-    'close_comment_button': './imgs/tiktok_lite/close_comment_button.png',
+    "like_button": "./imgs/tiktok_lite/like_button2.png",
+    "comment_button": "./imgs/tiktok_lite/comment_button2.png",
+    "submit_comment_button": "./imgs/tiktok_lite/submit_comment_button.png",
+    "close_comment_button": "./imgs/tiktok_lite/close_comment_button.png",
 }
 
 
 def search_like_button():
-    return locateCenterOnImage(
-        imgs.get('like_button'), screenshot(), confidence=0.82
-    )
+    return locateCenterOnImage(imgs.get("like_button"), screenshot(), confidence=0.82)
 
 
 def scroll_page():
@@ -34,7 +33,7 @@ def scroll_page():
 
 def close_comment():
     close_comment = locateCenterOnImage(
-        imgs.get('close_comment_button'), screenshot(), confidence=0.9
+        imgs.get("close_comment_button"), screenshot(), confidence=0.9
     )
     if close_comment:
         tap(*close_comment)
@@ -45,10 +44,10 @@ def auto_comment():
     # random_sleep()
 
     has_comment_button = locateCenterOnImage(
-        imgs.get('comment_button'), screenshot(), confidence=0.82
+        imgs.get("comment_button"), screenshot(), confidence=0.82
     )
 
-    print('has_comment_button')
+    print("has_comment_button")
     print(has_comment_button)
 
     # klik tombol komentar
@@ -56,7 +55,7 @@ def auto_comment():
         tap(*has_comment_button)
         # random_sleep()
         has_comment_input = device(
-            className='android.widget.EditText', textContains='Add comment'
+            className="android.widget.EditText", textContains="Add comment"
         )
         if has_comment_input:
             position = has_comment_input.center()
@@ -65,13 +64,13 @@ def auto_comment():
 
             random_sleep()
             comment_text = random.choice(db.comments)
-            print(f'comment: {comment_text}')
+            print(f"comment: {comment_text}")
             device.send_keys(comment_text)
             # has_comment_input.set_text(comment_text)
             random_sleep()
 
             submit_button = locateCenterOnImage(
-                imgs.get('submit_comment_button'), screenshot(), confidence=0.9
+                imgs.get("submit_comment_button"), screenshot(), confidence=0.9
             )
             tap(*submit_button)
             total_comment += 1
@@ -79,26 +78,24 @@ def auto_comment():
 
 
 # start the tiktok lite activity
-
+changeScreenSize(1280, 1280, 320)
 device.app_stop_all()
 device.app_start(
-    'com.zhiliaoapp.musically.go',
-    'com.ss.android.ugc.aweme.main.homepage.MainActivity',
+    "com.zhiliaoapp.musically.go",
+    "com.ss.android.ugc.aweme.main.homepage.MainActivity",
 )
-device.wait_activity(
-    'com.ss.android.ugc.aweme.main.homepage.MainActivity', timeout=10
-)
+device.wait_activity("com.ss.android.ugc.aweme.main.homepage.MainActivity", timeout=10)
 while True:
     if random.randint(1, 999) % 2 == 1:
         continue
 
     random_sleep()
     has_like_button = search_like_button()
-    print('has_like_button')
+    print("has_like_button")
     print(has_like_button)
     if has_like_button:
         tap(*has_like_button)
-        print('Like')
+        print("Like")
         total_like += 1
 
     if random.randint(1, 999) % 2 == 0:
@@ -106,7 +103,7 @@ while True:
 
     close_comment()
     random_sleep()
-    print(f'like: {total_like}')
-    print(f'comment: {total_comment}')
+    print(f"like: {total_like}")
+    print(f"comment: {total_comment}")
 
     scroll_page()
