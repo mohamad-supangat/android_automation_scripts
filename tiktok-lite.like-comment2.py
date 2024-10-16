@@ -1,9 +1,9 @@
 #!/bin/env python
 
-import sys
 import random
 from autoclick import helpers, db
 from autoclick.helpers import (
+    send_notify,
     device,
     tap,
     random_sleep,
@@ -66,6 +66,7 @@ def auto_comment():
             random_sleep()
             comment_text = random.choice(db.comments)
             print(f"comment: {comment_text}")
+            send_notify(f"comment: {comment_text}")
             device.send_keys(comment_text)
             # has_comment_input.set_text(comment_text)
             random_sleep()
@@ -73,7 +74,7 @@ def auto_comment():
             submit_button = locateCenterOnImage(
                 imgs.get("submit_comment_button"), screenshot(), confidence=0.8
             )
-            print('submit button')
+            print("submit button")
             print(submit_button)
             tap(*submit_button)
             total_comment += 1
@@ -111,5 +112,6 @@ while True:
     random_sleep()
     print(f"like: {total_like}")
     print(f"comment: {total_comment}")
+    send_notify(f"like: {total_like} \n comment: {total_comment}")
 
     scroll_page()
