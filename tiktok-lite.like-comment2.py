@@ -1,5 +1,6 @@
 #!/bin/env python
 
+import sys
 import random
 from autoclick import helpers, db
 from autoclick.helpers import (
@@ -28,12 +29,12 @@ def search_like_button():
 
 
 def scroll_page():
-    return helpers.device.swipe(292, 1050, 292, 163, 0.1)
+    return helpers.device.swipe(100, 350, 100, 10, 0.1)
 
 
 def close_comment():
     close_comment = locateCenterOnImage(
-        imgs.get("close_comment_button"), screenshot(), confidence=0.9
+        imgs.get("close_comment_button"), screenshot(), confidence=0.8
     )
     if close_comment:
         tap(*close_comment)
@@ -44,7 +45,7 @@ def auto_comment():
     # random_sleep()
 
     has_comment_button = locateCenterOnImage(
-        imgs.get("comment_button"), screenshot(), confidence=0.82
+        imgs.get("comment_button"), screenshot(), confidence=0.9
     )
 
     print("has_comment_button")
@@ -70,15 +71,20 @@ def auto_comment():
             random_sleep()
 
             submit_button = locateCenterOnImage(
-                imgs.get("submit_comment_button"), screenshot(), confidence=0.9
+                imgs.get("submit_comment_button"), screenshot(), confidence=0.8
             )
+            print('submit button')
+            print(submit_button)
             tap(*submit_button)
             total_comment += 1
             random_sleep()
 
 
+# auto_comment()
+# sys.exit()
+
 # start the tiktok lite activity
-changeScreenSize(1280, 1280, 320)
+changeScreenSize(400, 400, 120)
 device.app_stop_all()
 device.app_start(
     "com.zhiliaoapp.musically.go",
