@@ -5,10 +5,10 @@ import time
 
 # tombol dpad untuk menjalankan karakter
 grass_keys = {
-    'up': (222, 416),
-    'right': (300, 490),
-    'down': (222, 580),
-    'left': (136, 490),
+    "up": (222, 416),
+    "right": (300, 490),
+    "down": (222, 580),
+    "left": (136, 490),
 }
 
 # letak box di gunakan untuk memilih pokemon
@@ -31,14 +31,18 @@ select_move_boxs = [
 ]
 
 
-grass_buttons = {'A': (938, 558), 'box_3': (46, 246)}
+grass_buttons = {"A": (938, 558), "box_3": (46, 246)}
 
-moves = ['down', 'up', 'left', 'right']
+moves = ["down", "up", "left", "right"]
 
 
-#
+def start():
+    """ganti screen"""
+    helpers.changeScreenSize(720, 1280, 320)
+
+
 def fight():
-    print('sedang gelut')
+    print("sedang gelut")
     # check jika sedang memiliki pokemon yang mati
 
     # masuk ke pilih menu
@@ -58,33 +62,33 @@ def jalan_melingkar():
 
 
 def select_pokemon():
-    print(f'pilih pokemon')
+    print("pilih pokemon")
     select = random.choice(select_pokemon_boxs)
     helpers.tap(*select)
 
 
 def fishing():
-    print('klik pancing')
-    helpers.tap(*grass_buttons['box_3'])
+    print("klik pancing")
+    helpers.tap(*grass_buttons["box_3"])
     time.sleep(2)
     for _ in range(5):
-        print('klik A')
-        helpers.tap(*grass_buttons['A'])
+        print("klik A")
+        helpers.tap(*grass_buttons["A"])
         time.sleep(0.5)
     return True
 
 
 def is_in_grass(ss):
     return helpers.image_has_text(
-        ss, '2', location=(5, 141, 5 + 17, 141 + 23), debug=True
+        ss, "2", location=(5, 141, 5 + 17, 141 + 23), debug=True
     ) or helpers.image_has_text(
-        ss, 'Z', location=(5, 141, 5 + 17, 141 + 23), debug=True
+        ss, "Z", location=(5, 141, 5 + 17, 141 + 23), debug=True
     )
 
 
 def is_in_fight(ss):
     is_fight = helpers.image_has_text(
-        ss, 'FIGHT', location=(28, 576, 28 + 61, 576 + 33)
+        ss, "FIGHT", location=(28, 576, 28 + 61, 576 + 33)
     )
     return is_fight
 
@@ -93,7 +97,7 @@ def is_select_pokemon(ss):
     for pos in select_pokemon_boxs:
         if helpers.image_has_text(
             ss,
-            'HP:',
+            "HP:",
             location=(pos[0], pos[1], pos[0] + 52, pos[1] + 22),
             debug=False,
         ):
@@ -103,10 +107,8 @@ def is_select_pokemon(ss):
 
 def is_pilih_jurus_baru(ss):
     return helpers.image_has_text(
-        ss, 'move', location=(685, 269, 685 + 222, 269 + 65)
-    ) and helpers.image_has_text(
-        ss, 'cancel', location=(929, 310, 929 + 69, 310 + 21)
-    )
+        ss, "move", location=(685, 269, 685 + 222, 269 + 65)
+    ) and helpers.image_has_text(ss, "cancel", location=(929, 310, 929 + 69, 310 + 21))
 
 
 def pilih_jurus_baru(ss):
@@ -118,7 +120,7 @@ def pilih_jurus_baru(ss):
         ss, location=(699, 408, 699 + 314, 408 + 37)
     ).lower()
     existsing_move = []
-    print(f'new_move : {new_move}')
+    print(f"new_move : {new_move}")
 
     for move in moves:
         # mengambil data semua jurus yang sudah ada
@@ -129,21 +131,19 @@ def pilih_jurus_baru(ss):
         )
 
     print(existsing_move)
-    existsing_move_text = ', '.join(existsing_move)
+    existsing_move_text = ", ".join(existsing_move)
     selected_move = helpers.gpt(
-        f'which is better to replace the {new_move} move between {existsing_move_text} for attack style gameplay and which is not the HM type in pokemon choose one of the existing move just give the answer no need for explanation and no reason So just send the name of the movie from the options above'
+        f"which is better to replace the {new_move} move between {existsing_move_text} for attack style gameplay and which is not the HM type in pokemon choose one of the existing move just give the answer no need for explanation and no reason So just send the name of the movie from the options above"
     )
 
     for move in existsing_move:
         if move in selected_move.lower():
             selected_move = move
 
-    if selected_move != '':
+    if selected_move != "":
         selected_move = selected_move.lower()
-        print(f'selected move to replace: {selected_move}')
-        helpers.send_notify(
-            f'POKEMMO: new move {new_move} replace to {selected_move}'
-        )
+        print(f"selected move to replace: {selected_move}")
+        helpers.send_notify(f"POKEMMO: new move {new_move} replace to {selected_move}")
 
         selected_move_index = existsing_move.index(selected_move)
         selected_move_box = moves[selected_move_index]
