@@ -61,18 +61,32 @@ def in_grass(option):
 
 # start
 pokemmo.start()
+inFight = False
 while True:
     ss = helpers.screenshot()
     # break
     if pokemmo.is_in_fight(ss):
+        print("in fight")
+
+        if inFight is False:
+            inFight = True
+            helpers.send_notify("POKEMMO: new fight")
         pokemmo.fight()
+
     elif is_in_pokecenter(ss):
+        print("pokecenter")
+        inFight = False
+        helpers.send_notify("POKEMMO: in pokecenter")
         keluar_pc(selected_option)
     elif pokemmo.is_in_grass(ss):
+        print("rumput")
+        inFight = False
         in_grass(selected_option)
     elif pokemmo.is_pilih_jurus_baru(ss):
+        print("select new move")
         pokemmo.pilih_jurus_baru(ss)
     elif pokemmo.is_select_pokemon(ss):
+        print("select pokemon")
         pokemmo.select_pokemon()
     #
-    time.sleep(1)
+    time.sleep(2)

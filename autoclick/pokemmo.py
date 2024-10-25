@@ -1,7 +1,7 @@
-from autoclick import helpers
 import random
 import time
 
+from autoclick import helpers
 
 # tombol dpad untuk menjalankan karakter
 grass_keys = {
@@ -39,10 +39,16 @@ moves = ["down", "up", "left", "right"]
 def start():
     """ganti screen"""
     helpers.changeScreenSize(720, 1280, 320)
+    is_login = False
+
+    # helpers.device.app_stop_all()
+    # helpers.device.app_start(
+    #     "com.zhiliaoapp.musically.go",
+    #     "com.ss.android.ugc.aweme.main.homepage.MainActivity",
+    # )
 
 
 def fight():
-    print("sedang gelut")
     # check jika sedang memiliki pokemon yang mati
 
     # masuk ke pilih menu
@@ -62,13 +68,11 @@ def jalan_melingkar():
 
 
 def select_pokemon():
-    print("pilih pokemon")
     select = random.choice(select_pokemon_boxs)
     helpers.tap(*select)
 
 
 def fishing():
-    print("klik pancing")
     helpers.tap(*grass_buttons["box_3"])
     time.sleep(2)
     for _ in range(5):
