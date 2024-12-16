@@ -9,6 +9,7 @@
 <p>This script was created to automate activities that I think are very boring but we have to do them every day</p>
 <p>Please fork and enter as many of your ideas as possible</p>
 
+![image](https://github.com/user-attachments/assets/9c8ade20-a785-4692-b687-dc838a1b4dbd)
 
 ### List Automation:
 - Tiktok (Tiktok lite)
